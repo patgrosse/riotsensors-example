@@ -1,0 +1,9 @@
+[submodule "lib/libspt"]
+	path = lib/libspt
+	url = git@gitlab.com:patgrosse/libspt.git
+[submodule "lib/RIOT"]
+	path = lib/RIOT
+	url = https://github.com/RIOT-OS/RIOT.git
+[submodule "lib/riotsensors"]
+	path = lib/riotsensors
+	url = git@gitlab.com:patgrosse/riotsensors.git
