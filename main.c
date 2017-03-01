@@ -9,6 +9,11 @@ rs_int_t testint(lambda_id_t lambda_id) {
     return 42;
 }
 
+rs_double_t testdouble(lambda_id_t lambda_id) {
+    printf("called double lambda with id %d\n", lambda_id);
+    return 42.42;
+}
+
 rs_string_t teststring(lambda_id_t lambda_id) {
     printf("called string lambda with id %d\n", lambda_id);
     rs_string_t result = malloc(4);
@@ -16,13 +21,15 @@ rs_string_t teststring(lambda_id_t lambda_id) {
     return result;
 }
 
-int main() {
+int main(void) {
     printf("=== riotsensors started\n");
     rs_start();
     int8_t result = register_lambda_int("testint", testint, RS_CACHE_CALL_ONCE);
     printf("Result of int lambda register: %d\n", result);
-    int8_t result2 = register_lambda_string("teststr", teststring, RS_CACHE_CALL_ONCE);
-    printf("Result of string lambda register: %d\n", result2);
+    int8_t result2 = register_lambda_double("testdouble", testdouble, RS_CACHE_CALL_ONCE);
+    printf("Result of double lambda register: %d\n", result2);
+    int8_t result3 = register_lambda_string("teststr", teststring, RS_CACHE_CALL_ONCE);
+    printf("Result of string lambda register: %d\n", result3);
     sleep(2000);
     rs_stop();
     printf("\n=== riotsensors stopped\n");
