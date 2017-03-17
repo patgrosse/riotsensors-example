@@ -1,0 +1,25 @@
+image: patgrosse/riotsensors-build
+stages:
+  - prepare
+  - build
+before_script:
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - 'eval $(ssh-agent -s)'
+  - 'ssh-add <(echo "$SSH_PRIVATE_KEY")'
+  - 'mkdir -p ~/.ssh'
+  - 'echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+getlibs:
+  variables:
+    GIT_STRATEGY: clone
+  stage: prepare
+  script:
+    - "./prebuild.sh"
+  artifacts:
+    paths:
+    - lib/
+make-build:
+  stage: build
+  dependencies:
+    - getlibs
+  script:
+    - "make"
