@@ -8,22 +8,26 @@ The settings in the Makefile default to the board msba2.
 
 See the RIOT-OS documentation for more supported boards: [RIOT-Platforms](https://github.com/RIOT-OS/RIOT/wiki/RIOT-Platforms)
 
-1. Clone from git with submodules
-```
+1. Clone from git and load libraries
+```bash
+# Clone the repository
 git clone <url> riotsensors-example
 cd riotsensors-example
-git submodule update --init
+# Clone libraries in lib folder
+./prebuild.sh
 ```
 
 2. Build with:
-```
+```bash
 make all
 ```
+This may require a toolchain or other external programs (e.g. gcc-arm-none-eabi for board msba2)
 
 3. Flash with:
-```
+```bash
 make flash
 ```
+This may require a flash tool (e.g. lpc2k_pgm for boards msba2)
 
 ## riotsensors lambdas of this application
 
