@@ -20,7 +20,12 @@ CFLAGS += -DDEVELHELP
 QUIET ?= 1
 
 # Modules to include:
-USEMODULE += pthread
-USEMODULE += posix
+ifneq "native" "$(BOARD)"
+  USEMODULE += pthread
+  USEMODULE += posix
+else
+  CFLAGS += -pthread
+  LINKFLAGS += -lpthread
+endif
 
 include $(RIOTBASE)/Makefile.include
