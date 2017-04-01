@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 echo "=========== Adding tap device"
-sudo ip tuntap add tap0 mode tap user ${USER}
+sudo ip tuntap add tap0 mode tap
 sudo ip link set tap0 up
 echo "=========== Starting term in background"
 BOARD=native make term &
