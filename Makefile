@@ -1,7 +1,5 @@
 SHELL = /bin/bash
 
-include lib/riotsensors/riotmodule/Makefile.inc
-
 # name of your application
 APPLICATION = rs-example
 
@@ -28,4 +26,5 @@ else
   LINKFLAGS += -lpthread
 endif
 
+include lib/riotsensors/riotmodule/Makefile.inc
 include $(RIOTBASE)/Makefile.include

@@ -4,6 +4,9 @@
 #include <malloc.h>
 #include <memory.h>
 
+/* import "ifconfig" shell command, used for setting a static ip address */
+extern int _netif_config(int argc, char **argv);
+
 rs_int_t testint(lambda_id_t lambda_id) {
     printf("called int lambda with id %d\n", lambda_id);
     return 42;
@@ -21,8 +24,18 @@ rs_string_t teststring(lambda_id_t lambda_id) {
     return result;
 }
 
+static void set_ip_address(void) {
+    char *myargs[4];
+    myargs[0] = "ifconfig";
+    myargs[1] = "5";
+    myargs[2] = "add";
+    myargs[3] = "fe80::e0e6:d4ff:fedf:3333";
+    _netif_config(4, myargs);
+}
+
 int main(void) {
     printf("=== riotsensors started\n");
+    set_ip_address();
     rs_start();
     int8_t result = register_lambda_int("testint", testint, RS_CACHE_CALL_ONCE);
     printf("Result of int lambda register: %d\n", result);

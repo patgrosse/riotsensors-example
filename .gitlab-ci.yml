@@ -2,6 +2,7 @@ image: patgrosse/riotsensors-build
 stages:
   - prepare
   - build
+  - test
 before_script:
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - 'eval $(ssh-agent -s)'
@@ -17,9 +18,32 @@ getlibs:
   artifacts:
     paths:
     - lib/
-make-build:
+build-msba2:
   stage: build
   dependencies:
     - getlibs
   script:
     - "GITLAB_USE_SSH=1 make"
+build-native:
+  stage: build
+  dependencies:
+    - getlibs
+  script:
+    - "GITLAB_USE_SSH=1 make"
+  artifacts:
+    paths:
+    - bin/native/rs-example.elf
+    - bin/riotsensors
+integrationTest:
+  stage: test
+  dependencies:
+  - getlibs
+  - build-native
+  script:
+    - "git clone git@gitlab.com:patgrosse/riotsensors-example.git"
+    - "cd riotsensors-example"
+    - "ln -s `pwd`/../lib/RIOT lib/RIOT"
+    - "ln -s `pwd`/.. lib/riotsensors"
+    - "ln -s `pwd`/../lib/libspt lib/libspt"
+    - "GITLAB_USE_SSH=1 BOARD=native make all flash"
+    - "tests/test_list.sh"
