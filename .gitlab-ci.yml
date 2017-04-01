@@ -47,5 +47,4 @@ integrationTest:
     - "ln -s `pwd`/../lib/RIOT lib/RIOT"
     - "ln -s `pwd`/.. lib/riotsensors"
     - "ln -s `pwd`/../lib/libspt lib/libspt"
-    - "GITLAB_USE_SSH=1 BOARD=native make all flash"
     - "tests/test_list.sh"
