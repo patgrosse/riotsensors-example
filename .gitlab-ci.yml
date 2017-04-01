@@ -31,7 +31,7 @@ build-native:
   dependencies:
     - getlibs
   script:
-    - "GITLAB_USE_SSH=1 make"
+    - "GITLAB_USE_SSH=1 BOARD=native make"
   artifacts:
     paths:
     - bin/native/rs-example.elf
