@@ -42,9 +42,4 @@ integrationTest:
   - getlibs
   - build-native
   script:
-    - "git clone git@gitlab.com:patgrosse/riotsensors-example.git"
-    - "cd riotsensors-example"
-    - "ln -s `pwd`/../lib/RIOT lib/RIOT"
-    - "ln -s `pwd`/.. lib/riotsensors"
-    - "ln -s `pwd`/../lib/libspt lib/libspt"
-    - "tests/test_list.sh"
+    - "sudo tests/test_list.sh"
