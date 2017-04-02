@@ -8,7 +8,6 @@ BOARD=native make term &
 sleep 2
 coap-client 'coap://[fe80::e0e6:d4ff:fedf:3333%tap0]/list' | grep -q -P '(?=.*?testint)(?=.*?testdouble)(?=.*?teststr)^.*$'
 echo "=========== Killing child processes"
-pkill -STOP -P ${$}
 pkill -TERM -P ${$}
 echo "=========== Removing tap device"
 ip tuntap del tap0 mode tap
