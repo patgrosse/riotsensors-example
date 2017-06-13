@@ -14,6 +14,13 @@ RIOTBASE ?= $(CURDIR)/lib/RIOT
 # development process:
 CFLAGS += -DDEVELHELP
 
+# Use this do disable the riotsensors networking environment
+# No CoAP server will be started and no RIOT-OS networking packets
+# will be included by riotsensors
+# Use the C preprocessor macro RS_NO_COAP in your code to determine
+# if networking should be initialized (will be defined by riotsensors)
+# RS_NO_COAP = 1
+
 # Change this to 0 show compiler invocation lines by default:
 QUIET ?= 1
 

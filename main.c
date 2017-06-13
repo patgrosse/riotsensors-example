@@ -5,7 +5,9 @@
 #include <memory.h>
 
 /* import "ifconfig" shell command, used for setting a static ip address */
+#ifndef RS_NO_COAP
 extern int _netif_config(int argc, char **argv);
+#endif
 
 rs_int_t testint(lambda_id_t lambda_id) {
     printf("called int lambda with id %d\n", lambda_id);
@@ -25,12 +27,14 @@ rs_string_t teststring(lambda_id_t lambda_id) {
 }
 
 static void set_ip_address(void) {
+#ifndef RS_NO_COAP
     char *myargs[4];
     myargs[0] = "ifconfig";
     myargs[1] = "5";
     myargs[2] = "add";
     myargs[3] = "fe80::e0e6:d4ff:fedf:3333";
     _netif_config(4, myargs);
+#endif
 }
 
 int main(void) {
