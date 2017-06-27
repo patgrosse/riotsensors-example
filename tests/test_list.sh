@@ -1,4 +1,7 @@
 #!/bin/bash
+echo "=========== Removing possible preexisting tap device"
+ip tuntap del tap0 mode tap
+
 set -e
 echo "=========== Adding tap device"
 ip tuntap add tap0 mode tap
