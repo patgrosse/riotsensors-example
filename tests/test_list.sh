@@ -7,8 +7,11 @@ echo "=========== Adding tap device"
 ip tuntap add tap0 mode tap
 ip link set tap0 up
 echo "=========== Starting term in background"
-BOARD=native make term &
+((BOARD=native make term) | (sed 's/^/[BOARD OUTPUT] /')) &
 sleep 2
+echo "=========== Ifconfig output"
+ifconfig
+echo "=========== Calling CoAP client"
 coap-client 'coap://[fe80::e0e6:d4ff:fedf:3333%tap0]/list' | grep -q -P '(?=.*?testint)(?=.*?testdouble)(?=.*?teststr)^.*$'
 echo "=========== Killing child processes"
 pkill -TERM -P ${$}
